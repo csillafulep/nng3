@@ -1,6 +1,5 @@
 #pragma once
 #include "direction.h"
-
 #include <vector>
 #include <iostream>
 
@@ -81,9 +80,9 @@ public:
     //escalate scores update
     void EscalateUpdate();
     //expand leaf
-    void expand( const Board& );
+    bool expand( const Board& );
     //select highest score: magicscore + exploration
-    Node& select();
+    Node* select();
 };
 
 
