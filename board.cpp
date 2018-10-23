@@ -3,17 +3,24 @@
 #include<iostream>
 #include "global.h"
 
-Board::Board (const std::vector<Agent>& agents){
-    const int row = Task::GetInstance().tableRowCount;
-    const int col = Task::GetInstance().tableColCount;
-    visited = std::vector<std::vector<bool>>(row, std::vector<bool>(col, false));
-    occupied = std::vector<std::vector<bool>>(row, std::vector<bool>(col, false));
-    agentsOnBoard = agents;
-    for (const auto& agent : agents){
-        visited[agent.position.xCoord-1][agent.position.yCoord-1] = true;
-        occupied[agent.position.xCoord-1][agent.position.yCoord-1] = true;
+
+Board::Board(const Input& input){
+    visited = std::vector<std::vector<bool>>(input.numberOfRows, std::vector<bool>(input.numberOfCols, false));
+    occupied = std::vector<std::vector<bool>>(input.numberOfRows, std::vector<bool>(input.numberOfCols, false));
+    for (int i = 0; i< input.numberOfRows; i ++){
+        for (int j =0; j< input.numberOfCols; j++){
+            if (int(input.values[i][j]-'0')>0 && int(input.values[i][j]-'0')<10){
+                Point pos(i+1,j+1);
+                int fuel = int(input.values[i][j]-'0');
+                Agent newAgent(pos, fuel);
+                agentsOnBoard.push_back(newAgent);
+                visited[i][j] = true;
+                occupied[i][j] = true;
+            }
+        }
     }
 }
+
 
 // plot current board to std output
 void Board::plotBoard() const{

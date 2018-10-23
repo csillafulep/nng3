@@ -2,6 +2,22 @@
 #include "direction.h"
 
 #include <vector>
+#include <iostream>
+
+class Input
+{
+public:
+    static Input FromFile(const std::string& filename);
+    Input(std::istream&);
+
+    int numberOfRows;
+    int numberOfCols;
+    std::vector<std::string> values;
+
+private:
+    void ReadHeader(std::istream&);
+    void ReadValues(std::istream&);
+};
 
 class Point{
     public:
@@ -36,7 +52,7 @@ class Board{
     std::vector<std::vector<bool>> occupied;
     std::vector<Agent> agentsOnBoard; 
 
-    Board(const std::vector<Agent>&);
+    Board(const Input& input);
     // possible moves on board
     std::vector<Move>  possibleMoves() const;
     //calculate magicScore of a board
@@ -49,6 +65,7 @@ class Board{
     void applyMove (const Move&);
     // plot current board to std output
     void plotBoard() const;
+    
     
 };
 
@@ -71,3 +88,6 @@ public:
 
 //agent is on the edge of the board
 bool isOnEdge(const Direction , const Point&);
+
+
+std::ostream& operator<<(std::ostream&, const Input&);
