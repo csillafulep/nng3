@@ -44,6 +44,7 @@ class Move{
     Direction direction; 
     Move() = default;
     Move(const Agent& , Direction);
+    void plotMove() const;
 };
 
 class Board{
@@ -65,8 +66,8 @@ class Board{
     void applyMove (const Move&);
     // plot current board to std output
     void plotBoard() const;
-    
-    
+    //E already reached
+    bool success();
 };
 
 class Node{

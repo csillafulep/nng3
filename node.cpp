@@ -22,8 +22,10 @@
 void Node::expand( const Board& currentBoard){
     auto moves = currentBoard.possibleMoves();
     for (const auto& move: moves){
+        move.plotMove();
         auto newBoard = currentBoard;
         newBoard.applyMove(move);
+        newBoard.plotBoard();
         Node newNode;
         newNode.magicScore = newBoard.calculateMagicScore();
         newNode.numberOfGames = 1;

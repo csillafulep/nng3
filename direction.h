@@ -10,3 +10,6 @@ enum class Direction
 
 static constexpr Direction AllDirections[] = 
     {Direction::UP, Direction::DOWN, Direction::LEFT, Direction::RIGHT};
+
+static constexpr char DirChar[] =
+    {'^', 'v', '<', '>'};

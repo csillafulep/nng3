@@ -79,13 +79,13 @@ Point Board::nextPosition(const Direction dir, const Point& p){
     int xPos = p.xCoord;
     int yPos = p.yCoord;
     Point pNew = p;
-    if (dir == Direction::UP){
+    if (dir == Direction::DOWN){
         while( xPos<Task::GetInstance().tableRowCount && occupied[xPos][yPos-1])
             xPos++;
         if (xPos != Task::GetInstance().tableRowCount)
             pNew.xCoord = xPos + 1;
     }
-    else if (dir == Direction::DOWN){
+    else if (dir == Direction::UP){
         while( xPos>1 && occupied[xPos-2][yPos-1])
             xPos--;
         if (xPos != 1)
@@ -133,4 +133,9 @@ void Board::applyMove (const Move& nextMove){
             occupied[newPos.xCoord-1][newPos.yCoord-1] = true;
         }
 
+}
+
+//E already reached
+bool Board::success(){
+    return visited[Task::GetInstance().E.xCoord-1][Task::GetInstance().E.yCoord-1];
 }

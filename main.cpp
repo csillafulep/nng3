@@ -12,6 +12,17 @@ int main()
     
     Board initialBoard(input);
     initialBoard.plotBoard();
+    Node rootNode;
+
+    Board currentBoard = initialBoard;
+    rootNode.expand(currentBoard);
+    rootNode.EscalateUpdate();
+
+    Node node1 = rootNode.select();
+    currentBoard.applyMove(node1.previousMove);
+    node1.expand(currentBoard);
+
+    std::cout << "success: " << initialBoard.success()<< std::endl;
 
     return 0;
 }

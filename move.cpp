@@ -7,6 +7,11 @@ Move::Move (const Agent& agent, Direction dir)
 {
 }
 
+void Move::plotMove() const{
+    std::cout << "Move: " << movingAgent.position.xCoord << " " <<movingAgent.position.yCoord <<  " " << DirChar[(int)direction] <<std::endl;
+
+}
+
 //agent is on the edge of the board
 bool isOnEdge(const Direction dir, const Point& p){
     if (dir == Direction::UP &&  p.xCoord==1)
@@ -24,4 +29,3 @@ bool isOnEdge(const Direction dir, const Point& p){
     else 
         return false;
 }
-
