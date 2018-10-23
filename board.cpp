@@ -115,8 +115,10 @@ void Board::applyMove (const Move& nextMove){
     int currentFuel = agentsOnBoard[agentInd].fuel;
         
     while(currentFuel>0 && newPos != oldPos){
-        currentFuel--;
-        visited[newPos.xCoord-1][newPos.yCoord-1] = true;
+        if (visited[newPos.xCoord-1][newPos.yCoord-1] == false){
+            currentFuel--;
+            visited[newPos.xCoord-1][newPos.yCoord-1] = true;
+        }
         occupied[oldPos.xCoord-1][oldPos.yCoord-1] = false;
         
         //next step

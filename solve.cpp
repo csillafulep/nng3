@@ -19,7 +19,7 @@ double Board::calculateMagicScore()  const{
         }
     }
 
-    //magiScore = 2/(átlagos relativ távolság) + relativ kitöltöttség
+    //magiScore = 2/(átlagos relativ távolság) + relativ kitöltöttség: 
     double magicScore = ((row+col)*visitedNum/dist + visitedNum/row/col)/2;
     return magicScore;
 

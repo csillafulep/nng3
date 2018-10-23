@@ -72,7 +72,7 @@ class Board{
 
 class Node{
 public:
-    int magicScore;
+    double magicScore;
     int numberOfGames = 0;
     Move previousMove;
     Node* parent = nullptr;
