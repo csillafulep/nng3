@@ -2,6 +2,7 @@
 #include "global.h"
 #include <cmath>
 
+
 //calculate magic Score
 double Board::calculateMagicScore()  const{
     const double row = double(Task::GetInstance().tableRowCount);

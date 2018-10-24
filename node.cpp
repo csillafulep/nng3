@@ -1,15 +1,16 @@
 #include "header.h"
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 //select highest score: magicscore + exploration
  Node* Node::select() {
     size_t iMax = 0U;
-    double maxScore = children[0].magicScore + 100*std::sqrt(std::log(numberOfGames)/children[0].numberOfGames);
+    double maxScore = children[0].magicScore/children[0].numberOfGames + std::sqrt(std::log(numberOfGames)/children[0].numberOfGames);
     for (size_t i = 1U; i < children.size(); ++i) {
-        if (maxScore < children[i].magicScore + 100*std::sqrt(std::log(numberOfGames)/children[i].numberOfGames)) {
+        if (maxScore < children[i].magicScore/children[i].numberOfGames + std::sqrt(std::log(numberOfGames)/children[i].numberOfGames)) {
             iMax = i;
-            maxScore = children[i].magicScore + 100*std::sqrt(std::log(numberOfGames)/children[i].numberOfGames);
+            maxScore = children[i].magicScore/children[i].numberOfGames + std::sqrt(std::log(numberOfGames)/children[i].numberOfGames);
         }
     }
 
