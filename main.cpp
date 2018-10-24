@@ -23,7 +23,7 @@ int main()
     int numTrial = 1;
     std::vector<Move> solution;
 
-    while ( !taskSolved && numTrial <10000){
+    while ( !taskSolved && numTrial <100){
         std::cout << "--------------------" << numTrial << "-------------" << std::endl;
         currentBoard = initialBoard;
         currentNode = &rootNode;
@@ -31,12 +31,12 @@ int main()
         while(!currentNode->children.empty()){
             currentNode = currentNode->select();
             currentBoard.applyMove(currentNode->previousMove);
-            //currentNode->previousMove.plotMove();
+            currentNode->previousMove.plotMove();
             //currentBoard.plotBoard();
         }
 
         taskSolved = currentNode->expand(currentBoard);
-        currentNode->EscalateUpdate();        
+        currentNode->EscalateUpdate();   
         numTrial++;
     }
 
