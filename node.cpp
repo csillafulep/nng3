@@ -6,11 +6,11 @@
 //select highest score: magicscore + exploration
  Node* Node::select() {
     size_t iMax = 0U;
-    double maxScore = children[0].magicScore + 0.1*std::sqrt(2*std::log(numberOfGames)/children[0].numberOfGames);
+    double maxScore = children[0].magicScore/children[0].numberOfGames + std::sqrt(2*std::log(numberOfGames)/children[0].numberOfGames);
     for (size_t i = 1U; i < children.size(); ++i) {
-        if (maxScore < children[i].magicScore + 0.1*std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames)) {
+        if (maxScore < children[i].magicScore/children[i].numberOfGames + std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames)) {
             iMax = i;
-            maxScore = children[i].magicScore + 0.1*std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames);
+            maxScore = children[i].magicScore/children[i].numberOfGames + std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames);
         }
     }
 
@@ -50,18 +50,14 @@ void Node::EscalateUpdate()
 
     else {
         games = children.size();
-        newMagicScore = children[0].magicScore;
         for (const auto& child : children) {
-            if (child.magicScore > newMagicScore){
-                newMagicScore = child.magicScore;
-            }
+            newMagicScore += child.magicScore;
         }
     }
 
     Node* node = this;
     while(node) {
-        if (newMagicScore > node->magicScore)
-            node->magicScore = newMagicScore; 
+        node->magicScore += newMagicScore; 
         node->numberOfGames += games;
         node = node->parent;
     }

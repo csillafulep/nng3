@@ -5,7 +5,7 @@
 int main()
 {
     //read input
-    const auto input = Input::FromFile("../input/5.txt");
+    const auto input = Input::FromFile("../input/7.txt");
     std::cout << "input: " << input << std::endl;
 
     //init
@@ -23,7 +23,7 @@ int main()
     int numTrial = 1;
     std::vector<Move> solution;
 
-    while ( !taskSolved && numTrial <100){
+    while ( !taskSolved && numTrial <10000){
         std::cout << "--------------------" << numTrial << "-------------" << std::endl;
         currentBoard = initialBoard;
         currentNode = &rootNode;
@@ -32,11 +32,11 @@ int main()
             currentNode = currentNode->select();
             currentBoard.applyMove(currentNode->previousMove);
             currentNode->previousMove.plotMove();
-            //currentBoard.plotBoard();
+            currentBoard.plotBoard();
         }
 
         taskSolved = currentNode->expand(currentBoard);
-        currentNode->EscalateUpdate();   
+        currentNode->EscalateUpdate();
         numTrial++;
     }
 
@@ -44,7 +44,7 @@ int main()
     std::cout << "--------------------" << std::endl;
     std::cout << "success: " << taskSolved << std::endl;
     std::cout << "number of trials: " << numTrial << std::endl;
-    std::cout << "SOLUTION: " << std::endl;
+    
 
     //solution
     if (taskSolved){
@@ -66,6 +66,8 @@ int main()
             currentNode = currentNode->parent;
         }
 
+        std::cout << "SOLUTION: " << std::endl;
+        std::cout << solution.size() << std::endl;
         for (const auto& move: solution){
             move.plotMove();
         }
