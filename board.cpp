@@ -62,7 +62,7 @@ std::vector<Move>  Board::possibleMoves() const{
     std::vector<Move> moveOptions;
     for (const auto& agent : agentsOnBoard) {
         for (const auto dir : AllDirections){
-            if (!isOnEdge(dir, agent.position)){
+            if (!isOnEdge(dir, agent.position) && nextPosition(dir,agent.position) != agent.position){
                 Move nextOption( agent,  dir);
                 moveOptions.push_back (nextOption);
             }
@@ -75,7 +75,7 @@ std::vector<Move>  Board::possibleMoves() const{
 }
 
 //possibility to move in a direction on athe board
-Point Board::nextPosition(const Direction dir, const Point& p){
+Point Board::nextPosition(const Direction dir, const Point& p) const {
     int xPos = p.xCoord;
     int yPos = p.yCoord;
     Point pNew = p;

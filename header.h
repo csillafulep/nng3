@@ -58,7 +58,7 @@ class Board{
     //calculate magicScore of a board
     double calculateMagicScore() const;
     // possibility to movi in a direction on the board
-    Point nextPosition(const Direction , const Point& );
+    Point nextPosition(const Direction , const Point& ) const;
     //find out which agent moves
     int find_agent (const Agent&) const;
     //apply agent's move on Board
