@@ -82,7 +82,7 @@ public:
     //expand leaf
     bool expand( const Board& );
     //select highest score: magicscore + exploration
-    Node* select();
+    Node* select(const Board&);
 };
 
 

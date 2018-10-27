@@ -29,7 +29,7 @@ int main()
         currentNode = &rootNode;
 
         while(!currentNode->children.empty()){
-            currentNode = currentNode->select();
+            currentNode = currentNode->select(currentBoard);
             currentBoard.applyMove(currentNode->previousMove);
             currentNode->previousMove.plotMove();
             //currentBoard.plotBoard();
