@@ -56,7 +56,7 @@ class Board{
     // possible moves on board
     std::vector<Move>  possibleMoves() const;
     //calculate magicScore of a board
-    double calculateMagicScore() const;
+    double calculateMagicScore(const Board&) const;
     // possibility to movi in a direction on the board
     Point nextPosition(const Direction , const Point& ) const;
     //find out which agent moves
@@ -82,7 +82,7 @@ public:
     //expand leaf
     bool expand( const Board& );
     //select highest score: magicscore + exploration
-    Node* select(const Board&);
+    Node* select();
 };
 
 

@@ -117,7 +117,7 @@ public:
     //expand leaf
     bool expand( const Board& );
     //select highest score: magicscore + exploration
-    Node* select(const Board&);
+    Node* select();
 };
 
 
@@ -375,41 +375,34 @@ double Board::calculateMagicScore()  const{
     const double Ey =  double(Task::GetInstance().E.yCoord);
     double visitedNum = 0.0;
     double distE = 0.0;
-    double distAgents = 0.0;
+    
     for ( int i=0; i<row; i++) {
         for ( int j=0; j<col; j++) {
             
             if (visited[i][j]){
                 distE += std::abs(i-Ex+1.0) + std::abs(j-Ey+1.0);
                 visitedNum++;
-                if (!occupied[i][j]){
-                    double minAgentDist = row + col;
-                    for ( const auto& agent : agentsOnBoard){
-                         if ((std::abs(i-agent.position.xCoord+1) + std::abs(j-agent.position.yCoord+1)) < minAgentDist)
-                            minAgentDist = std::abs(i-agent.position.xCoord+1) + std::abs(j-agent.position.yCoord+1);
-                    }
-                    distAgents += minAgentDist;
-                }
+                
             }
         }
     }
 
     //magiScore = 2/(átlagos relativ távolság) + relativ kitöltöttség: 
     //double magicScore = ((row+col)*visitedNum/dist + visitedNum/row/col)/2;
-    double magicScore = (row+col)*visitedNum/distE + agentsOnBoard.size()*visitedNum/distAgents;
-    //std::cout << "E: " << (row+col)*visitedNum/distE << ", agent: " << visitedNum/distAgents << std::endl;
+    double magicScore = (row+col)*visitedNum/distE;
+    //std::cout << "E: " << (row+col)*visitedNum/distE << std::endl;
     return magicScore;
 
 }
 
 //select highest score: magicscore + exploration
- Node* Node::select(const Board& board) {
+ Node* Node::select() {
     size_t iMax = 0U;
-    double maxScore = children[0].magicScore/children[0].numberOfGames + board.agentsOnBoard.size()*std::sqrt(2*std::log(numberOfGames)/children[0].numberOfGames);
+    double maxScore = children[0].magicScore/children[0].numberOfGames + 0.01*std::sqrt(2*std::log(numberOfGames)/children[0].numberOfGames);
     for (size_t i = 1U; i < children.size(); ++i) {
-        if (maxScore < children[i].magicScore/children[i].numberOfGames + board.agentsOnBoard.size()*std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames)) {
+        if (maxScore < children[i].magicScore/children[i].numberOfGames + 0.01*std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames)) {
             iMax = i;
-            maxScore = children[i].magicScore/children[i].numberOfGames + board.agentsOnBoard.size()*std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames);
+            maxScore = children[i].magicScore/children[i].numberOfGames + 0.01*std::sqrt(2*std::log(numberOfGames)/children[i].numberOfGames);
         }
     }
 
@@ -487,7 +480,7 @@ int main()
         currentNode = &rootNode;
 
         while(!currentNode->children.empty()){
-            currentNode = currentNode->select(currentBoard);
+            currentNode = currentNode->select();
             currentBoard.applyMove(currentNode->previousMove);
             //currentNode->previousMove.plotMove();
             //currentBoard.plotBoard();
@@ -500,10 +493,6 @@ int main()
         numTrial++;
     }
 
-
-    //std::cout << "--------------------" << std::endl;
-    
-    
 
     //solution
     if (taskSolved){

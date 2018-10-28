@@ -6,7 +6,7 @@ int main()
 {
 
     //read input
-    const auto input = Input::FromFile("../input/9.txt");
+    const auto input = Input::FromFile("../input/6.txt");
     std::cout << "input: " << input << std::endl;
 
     //init
@@ -30,7 +30,7 @@ int main()
         currentNode = &rootNode;
 
         while(!currentNode->children.empty()){
-            currentNode = currentNode->select(currentBoard);
+            currentNode = currentNode->select();
             currentBoard.applyMove(currentNode->previousMove);
             currentNode->previousMove.plotMove();
             //currentBoard.plotBoard();
