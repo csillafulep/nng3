@@ -34,7 +34,7 @@ double Board::calculateMagicScore()  const{
     //magiScore = 2/(átlagos relativ távolság) + relativ kitöltöttség: 
     //double magicScore = ((row+col)*visitedNum/dist + visitedNum/row/col)/2;
     double magicScore = (row+col)*visitedNum/distE + agentsOnBoard.size()*visitedNum/distAgents;
-    //std::cout << "E: " << (row+col)*visitedNum/distE << ", agent: " << visitedNum/distAgents << std::endl;
+    //std::cout << "E: " << (row+col)*visitedNum/distE << ", agent: " << agentsOnBoard.size()*visitedNum/distAgents << std::endl;
     return magicScore;
 
 }

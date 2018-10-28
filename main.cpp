@@ -4,6 +4,7 @@
 
 int main()
 {
+
     //read input
     const auto input = Input::FromFile("../input/9.txt");
     std::cout << "input: " << input << std::endl;
@@ -23,7 +24,7 @@ int main()
     int numTrial = 1;
     std::vector<Move> solution;
 
-    while ( !taskSolved && numTrial <100000){
+    while ( !taskSolved && numTrial <1000){
         std::cout << "--------------------" << numTrial << "-------------" << std::endl;
         currentBoard = initialBoard;
         currentNode = &rootNode;
@@ -38,16 +39,7 @@ int main()
         taskSolved = currentNode->expand(currentBoard);
         currentNode->EscalateUpdate();
 
-        // if (!currentNode->children.empty()){
-            
-        //     currentNode = currentNode->select();
-        //     currentBoard.applyMove(currentNode->previousMove);
-        //     currentNode->previousMove.plotMove();
-        //     taskSolved = currentNode->expand(currentBoard);
-        //     currentNode->EscalateUpdate();
-        // }
-
-        
+             
         numTrial++;
     }
 
